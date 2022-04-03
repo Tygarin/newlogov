@@ -16,8 +16,8 @@ export const Task3 = (props) => {
 
     function calculate() {
         let H
-        let a = x1
-        let b = x2
+        let a = props.x1 ? props.x1 : x1
+        let b = props.x2 ? props.x2 : x2
 
         if (h === 0) H = Number((b - a) / 10)
         else H = Number(h)
@@ -25,49 +25,65 @@ export const Task3 = (props) => {
         let res = []
 
         while (x <= b) {
-            let tmpX = 0
+            let tmpX = 1
             for (let i = 1; i <= n; i++) {
                 const top = calcTop(x, i)
                 const bottom = calcBottom(i)
-                let answer = pow(-1, Number(i))
-                tmpX += answer * (top / bottom)
+                tmpX += pow(-1, Number(i)) * (top / bottom)
             }
-            let y = cos(x)
+            let y = props.y ? calculatedFunctionController(props.y, x) : cos(x)
             res.push(`при x = ${x} сумма = ${tmpX} Y(x) = ${y}`)
-            x += Number(H)
+            x += H
         }
         setResult(res)
+
+        function calcTop(x, i) {
+            return pow(x, (Number(2) * Number(i)))
+        }
+
+        function calcBottom(i) {
+            return factorial(Number(2) * Number(i))
+        }
     }
 
-    function calcTop(x, i) {
-        return pow(x, (Number(2) * Number(i)))
-    }
-
-    function calcBottom(i) {
-        return factorial(Number(2) * Number(i))
+    function calculatedFunctionController(selectedFunction, x) {
+        switch (selectedFunction) {
+            case 0:
+                return Math.sinh(x)
+            case 1:
+                return Math.pow(x, 2)
+            case 2:
+                return Math.pow(Math.E, x)
+            default:
+                break
+        }
     }
 
     return (
         <div className='center '>
             {props.y !== undefined ? <></> : <h1>Task3</h1>}
             <div className='row between'>
-                <div className='column'>
-                    <label>
-                        a
-                        <input value={x1} onChange={e => setX1(Number(e.target.value))} type='number' ></input>
-                    </label>
-                    <label>
-                        b
-                        <input value={x2} onChange={e => setX2(Number(e.target.value))} type='number' ></input>
-                    </label>
-                </div>
+                {
+                    !props.x1 && !props.x2 && (
+                        <div className='column'>
+                            <label>
+                                a
+                                <input value={x1} onChange={e => setX1(Number(e.target.value))} type='number' ></input>
+                            </label>
+                            <label>
+                                b
+                                <input value={x2} onChange={e => setX2(Number(e.target.value))} type='number' ></input>
+                            </label>
+                        </div>
+                    )
+                }
                 <div className='column'>
                     <label>
                         n
                         <input value={n} onChange={e => setN(Number(e.target.value))} type='number' ></input>
                     </label>
                     <label>
-                        №
+                        H
                         <input value={h} onChange={e => setH(Number(e.target.value))} type='number' ></input>
                     </label>
                 </div>

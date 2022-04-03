@@ -7,10 +7,10 @@ export const Task6 = (props) => {
 
     const findNumbers = (e) => {
         let str = e.target.value
-        setString(str)
-        var regex = /[+-]?\d+(\.\d+)?/g;
-        var floats = str.match(regex).map((v) => parseFloat(v));
-        setNumbers(floats)
+        // setNumbers(str)
+        let arr = []
+        
+        console.log(str.split(''));
     }
 
     return (
@@ -18,7 +18,7 @@ export const Task6 = (props) => {
             <h1>Task6</h1>
             <div className='row ' style={{ maxWidth: 600, width: 600, justifyContent: 'center' }}>
                 <div className='column'>
-                    <input style={{ width: 400, height: 50 }} placeholder='Введите строку' value={string} onChange={findNumbers} ></input>
+                    <input style={{ width: 400, height: 50 }} placeholder='Введите строку' onChange={findNumbers} ></input>
                 </div>
             </div>
             <div>Числа в строке {numbers.map((i, index) => (

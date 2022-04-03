@@ -25,14 +25,15 @@ export const Task4 = (props) => {
     const calculate = () => {
         const answer = []
         let matr = [...matrix]
-        matr = matr.map((col, i) => matr.map(row => row[i]));
+        if (matr[0].length > matr.length) {matr = matr[0].map((col, i) => matr.map(row => row[i]))} else {
+            matr = matr.map((col, i) => matr.map(row => row[i]))
+        }
         matr.map((e, i) => {
             e.map((elem, index) => {
                 let newArr = [...e]
                 newArr.splice(index, 1)
-                console.log(matr);
-                let summ = newArr.reduce((a,b) => a + b)
-                if(elem > summ) answer.push(elem);
+                let summ = newArr.length >= 1 ? newArr.reduce((a, b) => a + b) : ['no']
+                if (elem > summ) answer.push(elem);
             })
         })
         setAnswer(answer)
@@ -55,7 +56,7 @@ export const Task4 = (props) => {
             </div>
             <button onClick={setMatr}>Заполнить</button>
             <button onClick={calculate}>Выполнить</button>
-            <br/>
+            <br />
             {matrix?.map((N, indexN) => (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }} key={indexN}>
                     {N?.map((M, indexM) => (
@@ -63,9 +64,10 @@ export const Task4 = (props) => {
                     ))}
                 </div>
             ))}
-            <br/>
+            <br />
             <div>
-                Ответ: {answer.map((e, i) => <div key={i}>{e}</div>)}
+                {console.log(answer)}
+                Ответ: {answer.length}
             </div>
         </div>
     )
