@@ -4,7 +4,7 @@ import './styles.css'
 export const Task3 = (props) => {
     const [x1, setX1] = useState(0.1)
     const [x2, setX2] = useState(1)
-    const [n, setN] = useState(80)
+    const [n, setN] = useState(120)
     const [h, setH] = useState(0)
     const [result, setResult] = useState([])
 
@@ -27,11 +27,9 @@ export const Task3 = (props) => {
         while (x <= b) {
             let tmpX = 1
             for (let i = 1; i <= n; i++) {
-                const top = calcTop(x, i)
-                const bottom = calcBottom(i)
-                tmpX += pow(-1, Number(i)) * (top / bottom)
+                tmpX += Math.cos(i * Math.PI / 4) / factorial(i) * Math.pow(x ,i)
             }
-            let y = props.y ? calculatedFunctionController(props.y, x) : cos(x)
+            let y = props.y ? calculatedFunctionController(props.y, x) : (Math.exp(x * Math.cos(Math.PI / 4))) * Math.cos(x * Math.sin(Math.PI / 4))
             res.push(`при x = ${x} сумма = ${tmpX} Y(x) = ${y}`)
             x += H
         }
